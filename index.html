@@ -35,7 +35,7 @@
 
     #slideshow {
       width: 320px;
-      border-radius: 50%; /* circular images */
+      border-radius: 20px; /* rectangular with slight rounded corners */
       margin-top: 20px;
     }
 
@@ -122,51 +122,4 @@
     // --- NO RUNS AWAY ---
     function moveNo() {
       startMusic();
-      const noBtn = document.getElementById("no");
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 120);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    // --- YES CLICK ---
-    function yesClicked() {
-      startMusic();
-
-      const container = document.getElementById("mainContainer");
-      container.innerHTML = `
-        <h1 id="yesMessage">YAYY! 💕</h1>
-        <p id="yesSub">You just made me the happiest person alive. I love you so much! 🥰</p>
-      `;
-
-      // start confetti
-      createConfetti();
-      setInterval(createConfetti, 200);
-    }
-
-    // --- CONFETTI FUNCTION ---
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * window.innerWidth + "px";
-      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
-      confetti.style.width = confetti.style.height = Math.random() * 8 + 8 + "px";
-
-      document.body.appendChild(confetti);
-
-      let top = 0;
-      const fall = setInterval(() => {
-        top += 5 + Math.random() * 5;
-        confetti.style.top = top + "px";
-
-        if(top > window.innerHeight) {
-          confetti.remove();
-          clearInterval(fall);
-        }
-      }, 20);
-    }
-  </script>
-
-</body>
-</html>
-
+      const noBtn = document
