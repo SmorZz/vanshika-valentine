@@ -2,15 +2,21 @@
 <html>
 <head>
   <title>💝 Vanshika, Will You Be My Valentine?</title>
+
+  <!-- iMessage-safe meta tags -->
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="format-detection" content="telephone=no,email=no,address=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     html, body {
       height: 100%;
-      overflow-x: hidden;
       margin: 0;
       padding: 0;
-      text-align: center;
       font-family: Arial, sans-serif;
       background: pink;
+      text-align: center;
+      overflow-x: hidden;
     }
 
     #mainContainer {
@@ -20,11 +26,11 @@
     }
 
     h1#question {
-      font-size: 50px; /* bigger question */
+      font-size: 50px;
     }
 
     h1#yesMessage {
-      font-size: 80px; /* bigger YES message */
+      font-size: 80px;
       color: #ff4d6d;
     }
 
@@ -35,137 +41,12 @@
 
     #slideshow {
       width: 320px;
-      border-radius: 20%; /* circular images */
+      border-radius: 20px; /* rectangular with slight rounding */
       margin-top: 20px;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
     }
 
     button {
       font-size: 22px;
-      padding: 12px 26px;
-      margin: 20px;
-      cursor: pointer;
-      border-radius: 10px;
-      border: none;
-      position: relative;
-    }
-
-    #yes {
-      background-color: #ff4d6d;
-      color: white;
-    }
-
-    #no {
-      background-color: #cccccc;
-      position: absolute;
-    }
-
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: gold;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.8;
-      border-radius: 50%;
-    }
-  </style>
-</head>
-<body>
-
-  <div id="mainContainer">
-    <h1 id="question">Vanshika, will you be my Valentine? 💖</h1>
-
-    <img id="slideshow" src="pic1.jpeg">
-
-    <div>
-      <button id="yes" onclick="yesClicked()">YES 💘</button>
-      <button id="no" onmouseover="moveNo()">NO 🙃</button>
-    </div>
-  </div>
-
-  <audio id="music" loop>
-    <source src="ishq wala love.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    // --- MUSIC ---
-    let musicStarted = false;
-    function startMusic() {
-      if (!musicStarted) {
-        const audio = document.getElementById("music");
-        audio.play().catch(()=>{}); // play after user interaction
-        musicStarted = true;
-      }
-    }
-
-    document.body.addEventListener('click', startMusic);
-    document.body.addEventListener('mouseover', startMusic);
-
-    // --- SLIDESHOW ---
-    const photos = [
-      "pic1.jpeg",
-      "pic 2.jpeg",
-      "pic 3.jpeg",
-      "pic 4.jpeg",
-      "pic 5.jpeg",
-      "pic 6.jpeg"
-    ];
-    let index = 0;
-    setInterval(() => {
-      index = (index + 1) % photos.length;
-      document.getElementById("slideshow").src = photos[index];
-    }, 2000);
-
-    // --- NO RUNS AWAY ---
-    function moveNo() {
-      startMusic();
-      const noBtn = document.getElementById("no");
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 120);
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    // --- YES CLICK ---
-    function yesClicked() {
-      startMusic();
-
-      const container = document.getElementById("mainContainer");
-      container.innerHTML = `
-        <h1 id="yesMessage">YAYY! 💕</h1>
-        <p id="yesSub">You just made me the happiest person alive. I love you so much! 🥰</p>
-      `;
-
-      // start confetti
-      createConfetti();
-      setInterval(createConfetti, 200);
-    }
-
-    // --- CONFETTI FUNCTION ---
-    function createConfetti() {
-      const confetti = document.createElement("div");
-      confetti.classList.add("confetti");
-      confetti.style.left = Math.random() * window.innerWidth + "px";
-      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
-      confetti.style.width = confetti.style.height = Math.random() * 8 + 8 + "px";
-
-      document.body.appendChild(confetti);
-
-      let top = 0;
-      const fall = setInterval(() => {
-        top += 5 + Math.random() * 5;
-        confetti.style.top = top + "px";
-
-        if(top > window.innerHeight) {
-          confetti.remove();
-          clearInterval(fall);
-        }
-      }, 20);
-    }
-  </script>
-
-</body>
-</html>
+      padding: 12px
