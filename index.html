@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>💝 One Important Question</title>
+
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: pink;
+      margin-top: 60px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    #slideshow {
+      width: 320px;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 12px 24px;
+      margin: 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      position: relative;
+    }
+
+    #yes {
+      font-size: 24px;
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #cccccc;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Will you be my Valentine? 💖</h1>
+
+  <img id="slideshow" src="pic1.jpeg">
+
+  <div>
+    <button id="yes" onclick="yesClicked()">YES 💘</button>
+    <button id="no" onmouseover="moveNo()">NO 🙃</button>
+  </div>
+
+  <audio id="music" src="ishq wala love.mp3" loop></audio>
+
+  <script>
+    // Slideshow
+    let photos = [
+      "pic1.jpeg",
+      "pic 2.jpeg",
+      "pic 3.jpeg",
+      "pic 4.jpeg",
+      "pic 5.jpeg",
+      "pic 6.jpeg"
+    ];
+
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % photos.length;
+      document.getElementById("slideshow").src = photos[index];
+    }, 2000);
+
+    // YES button grows
+    let yesSize = 24;
+
+    function yesClicked() {
+      document.getElementById("music").play();
+      document.body.innerHTML = `
+        <h1>YAYYYY 💕</h1>
+        <p>I’m so happy you said yes 🥰</p>
+      `;
+    }
+
+    // NO button runs away
+    function moveNo() {
+      document.getElementById("music").play();
+
+      const noBtn = document.getElementById("no");
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      yesSize += 6;
+      document.getElementById("yes").style.fontSize = yesSize + "px";
+    }
+  </script>
+
+</body>
+</html>
