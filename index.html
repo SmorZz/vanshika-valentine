@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>💝 One Important Question</title>
-
+  <title>💝 Vanshika, Will You Be My Valentine?</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
       text-align: center;
       font-family: Arial, sans-serif;
       background: pink;
-      margin-top: 60px;
-      overflow: hidden;
     }
 
-    h1 {
+    #mainContainer {
+      max-width: 800px;
+      margin: auto;
+      padding-top: 60px;
+    }
+
+    h1#question {
+      font-size: 50px; /* bigger question */
+    }
+
+    h1#yesMessage {
+      font-size: 60px; /* bigger YES message */
+      color: #ff4d6d;
+    }
+
+    p#yesSub {
       font-size: 36px;
+      margin-top: 20px;
     }
 
     #slideshow {
@@ -42,7 +59,6 @@
       position: absolute;
     }
 
-    /* confetti pieces */
     .confetti {
       position: fixed;
       width: 10px;
@@ -57,16 +73,17 @@
     }
   </style>
 </head>
+<body>
 
-<body onclick="startMusic()">
+  <div id="mainContainer">
+    <h1 id="question">Vanshika, will you be my Valentine? 💖</h1>
 
-  <h1>Vanshika, Will you be my Valentine? 💖</h1>
+    <img id="slideshow" src="pic1.jpeg">
 
-  <img id="slideshow" src="pic1.jpeg">
-
-  <div>
-    <button id="yes" onclick="yesClicked()">YES 💘</button>
-    <button id="no" onmouseover="moveNo()">NO 🙃</button>
+    <div>
+      <button id="yes" onclick="yesClicked()">YES 💘</button>
+      <button id="no" onmouseover="moveNo()">NO 🙃</button>
+    </div>
   </div>
 
   <audio id="music" loop>
@@ -78,13 +95,17 @@
     let musicStarted = false;
     function startMusic() {
       if (!musicStarted) {
-        document.getElementById("music").play();
+        const audio = document.getElementById("music");
+        audio.play().catch(()=>{}); // play after user interaction
         musicStarted = true;
       }
     }
 
+    document.body.addEventListener('click', startMusic);
+    document.body.addEventListener('mouseover', startMusic);
+
     // --- SLIDESHOW ---
-    let photos = [
+    const photos = [
       "pic1.jpeg",
       "pic 2.jpeg",
       "pic 3.jpeg",
@@ -92,7 +113,6 @@
       "pic 5.jpeg",
       "pic 6.jpeg"
     ];
-
     let index = 0;
     setInterval(() => {
       index = (index + 1) % photos.length;
@@ -102,11 +122,9 @@
     // --- NO RUNS AWAY ---
     function moveNo() {
       startMusic();
-
       const noBtn = document.getElementById("no");
       const x = Math.random() * (window.innerWidth - 120);
       const y = Math.random() * (window.innerHeight - 120);
-
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     }
@@ -115,9 +133,10 @@
     function yesClicked() {
       startMusic();
 
-      document.body.innerHTML = `
-        <h1>yayyy!!💕</h1>
-        <p>You just made me the happiest person alive! I love you so much! 🥰</p>
+      const container = document.getElementById("mainContainer");
+      container.innerHTML = `
+        <h1 id="yesMessage">YAYY! 💕</h1>
+        <p id="yesSub">You just made me the happiest person alive. I love you so much! 🥰</p>
       `;
 
       // start confetti
@@ -129,21 +148,17 @@
     function createConfetti() {
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
-
-      // random starting position
       confetti.style.left = Math.random() * window.innerWidth + "px";
       confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
       confetti.style.width = confetti.style.height = Math.random() * 8 + 8 + "px";
 
       document.body.appendChild(confetti);
 
-      // falling animation
       let top = 0;
       const fall = setInterval(() => {
         top += 5 + Math.random() * 5;
         confetti.style.top = top + "px";
 
-        // remove after it falls off screen
         if(top > window.innerHeight) {
           confetti.remove();
           clearInterval(fall);
@@ -154,3 +169,4 @@
 
 </body>
 </html>
+
