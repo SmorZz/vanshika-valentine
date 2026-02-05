@@ -2,259 +2,162 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>directory122909</title>
+<title>directory</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #ffe6ef;
-  font-family: "Georgia", serif;
-  overflow: hidden;
+  margin:0; padding:0; height:100%; overflow:hidden;
+  font-family:"Montserrat", sans-serif;
+  background: linear-gradient(180deg,#ffd6e5,#ffeaf2);
+  text-align:center;
 }
 
-/* Common screen style */
+/* Smooth transitions */
 .screen {
   display: none;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+  height:100%; width:100%;
+  animation: fadeIn 0.6s ease forwards;
 }
-.screen.active { display:flex; opacity:1; }
+.screen.active {display:flex; flex-direction:column; align-items:center; justify-content:center;}
+@keyframes fadeIn {from{opacity:0; transform:scale(0.98);} to{opacity:1; transform:scale(1);}}
 
-/* Fade-in class for initial animation */
-.fade-in {
-  animation: fade 1s ease forwards;
+/* PAGE 1 */
+#startBtn {
+  font-size:2.5rem; padding:30px 70px; background:#000; color:#fff;
+  font-family:"Montserrat", sans-serif; box-shadow:0 18px 40px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
 }
-@keyframes fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+#startBtn:hover {transform: scale(1.05);}
 
-/* Titles and hints */
-h1 {
-  color: #b30047;
-  font-size: 48px;
-  margin-bottom: 10px;
-}
-.hint {
-  font-size: 16px;
-  color: #7a002a;
-  opacity: 0.7;
-  margin-bottom: 25px;
-  font-style: italic;
-}
+/* PAGE 2 */
+h1 { font-family:"Montserrat", sans-serif; font-size:clamp(2rem,5vw,3rem); color:#7a003c; margin:0; }
+.hint { font-style:italic; opacity:0.6; font-size:1rem; margin:10px 0 20px 0; }
+#slideshow { width:min(280px,70vw); border-radius:20px; box-shadow:0 12px 30px rgba(0,0,0,0.2); margin:15px 0; }
+.buttons { position:relative; width:100%; height:220px; margin-top:20px; }
+#yes { background:#ff4d6d; color:white; font-size:1.5rem; padding:16px 40px; animation: heartbeat 1s infinite; box-shadow:0 8px 20px rgba(255,77,109,0.5);}
+#no { background:#e0e0e0; position:absolute; font-size:1.4rem; padding:14px 32px; left:55%; top:20px; cursor:pointer;}
 
-/* Slideshow images */
-.slideshow img {
-  width: 280px;
-  height: 280px;
-  object-fit: cover;
-  border-radius: 24px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
-  margin-bottom: 30px;
-}
-
-/* Buttons */
-.buttons {
-  position: relative;
-  height: 120px;
-}
-button {
-  padding: 14px 34px;
-  font-size: 20px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-button:hover { transform: scale(1.06); }
-
-/* YES button heartbeat */
-#yesBtn {
-  background: #ff4d79;
-  color: white;
-  animation: heartbeat 1s infinite;
-}
+/* Heartbeat animation */
 @keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
+  0%,100% { transform: scale(1); }
   25% { transform: scale(1.15); }
   50% { transform: scale(1); }
   75% { transform: scale(1.15); }
 }
 
-/* NO button */
-#noBtn {
-  background: #ffd1dc;
-  color: #7a002a;
-  position: absolute;
-  left: 160px;
-  top: 0;
-}
+/* PAGE 3 */
+#screen3 h1 { font-size:clamp(2.5rem,6vw,3rem); color:#ff2e63; }
+#screen3 p { font-size:1.5rem; margin:10px 0; }
+#nextBtn { font-size:1.6rem; padding:18px 46px; background:#ff4d6d; color:white; border-radius:999px; cursor:pointer; }
 
-/* Letter screen */
-.letter {
-  background: white;
-  padding: 45px;
-  max-width: 700px;
-  border-radius: 28px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.18);
-  font-size: 19px;
-  line-height: 1.7;
-  text-align: left;
+/* PAGE 4 */
+#screen4 { position:relative; padding:40px 20px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+#bgSlide { position:fixed; inset:0; z-index:-1; opacity:0.22; filter:blur(2px); width:100%; height:100%; object-fit:cover; transition:opacity 1s ease; }
+#letter {
+  max-width:720px; margin:auto;
+  background:rgba(255,255,255,0.9); padding:36px; border-radius:24px;
+  font-family:"Playfair Display", serif; font-size:1.3rem; line-height:1.8; box-shadow:0 25px 60px rgba(0,0,0,0.2);
+  text-align:left; /* LEFT align text inside the box */
 }
-.signature { margin-top: 30px; font-weight: bold; }
 
 /* Confetti */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
+.confetti {
+  position:fixed; width:8px; height:8px; border-radius:50%; top:-10px; z-index:9999;
+  background: linear-gradient(45deg, #ff77a9, #ffccff);
+  filter: drop-shadow(0 0 4px white);
+  transform: rotate(45deg);
 }
 </style>
 </head>
+
 <body>
 
-<audio id="music" loop>
-  <source src="ishq wala love.mp3" type="audio/mpeg">
-</audio>
-
 <!-- PAGE 1 -->
-<div id="page1" class="screen active">
+<div id="screen1" class="screen active">
   <button id="startBtn">Click Here</button>
 </div>
 
 <!-- PAGE 2 -->
-<div id="questionScreen" class="screen">
+<div id="screen2" class="screen">
   <h1>Vanshika, will you be my Valentine? 💖</h1>
-  <p class="hint">hint: try clicking no...</p>
-  <div class="slideshow">
-    <img id="slide" src="pic1.jpeg">
-  </div>
+  <p class="hint">hint: try clicking no…</p>
+  <img id="slideshow" src="pic1.jpeg">
   <div class="buttons">
-    <button id="yesBtn">Yes 💘</button>
-    <button id="noBtn">No 🙃</button>
+    <button id="yes">YES 💘</button>
+    <button id="no">NO 🙃</button>
   </div>
 </div>
 
 <!-- PAGE 3 -->
-<div id="page3" class="screen">
+<div id="screen3" class="screen">
   <h1>You just made me the happiest guy alive 💕</h1>
   <p>I love you so much 🥰</p>
   <button id="nextBtn">CLICK HERE!!</button>
 </div>
 
 <!-- PAGE 4 -->
-<div id="letterScreen" class="screen">
-  <canvas id="confetti"></canvas>
-  <div class="letter">
-    <p>Dear Vanshika,</p>
-    <p>
-      Even though we can't spend Valentine's Day together right now, every moment we share
-      makes me realize just how incredible you are. Whether it's our long chats about everything
-      and anything or those fun moments playing games like Roblox, every second with you means the world to me.
-      I cherish our calls and feel incredibly lucky that fate brought us together.
-    </p>
-    <p>
-      I love you so much. Happy Valentine’s Day!
-    </p>
-    <p class="signature">
-      From,<br>Nilesh 💖
-    </p>
+<div id="screen4" class="screen">
+  <img id="bgSlide" src="pic1.jpeg">
+  <div id="letter">
+    <p><strong>Dear Vanshika,</strong></p>
+    <p>Even though we can't spend Valentine's Day together right now, every moment we share makes me realize just how incredible you are. Whether it's our long chats about everything and anything or those fun moments playing games like Roblox, every second with you means the world to me. Our nighttime calls are the highlights of my day.</p>
+    <p>I feel so lucky that fate brought us together. I love you so much. Happy Valentine’s Day!</p>
+    <p><strong>From,<br>Nilesh</strong></p>
   </div>
 </div>
 
+<audio id="music" loop>
+  <source src="ishq wala love.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-// Start experience
-let started = false;
-const page1 = document.getElementById("page1");
-const questionScreen = document.getElementById("questionScreen");
-const page3 = document.getElementById("page3");
-const letterScreen = document.getElementById("letterScreen");
-const music = document.getElementById("music");
+const screens=["screen1","screen2","screen3","screen4"];
+const show=id=>screens.forEach(s=>document.getElementById(s).classList.toggle("active", s===id));
 
-document.getElementById("startBtn").onclick = () => {
-  page1.classList.remove("active");
-  questionScreen.classList.add("active");
-  music.play().catch(()=>{});
-};
-
-// Slideshow
-const photos = ["pic1.jpeg","pic 2.jpeg","pic 3.jpeg","pic 4.jpeg","pic 5.jpeg","pic 6.jpeg"];
+const slideshow=document.getElementById("slideshow");
+const bgSlide=document.getElementById("bgSlide");
+const photos=["pic1.jpeg","pic 2.jpeg","pic 3.jpeg","pic 4.jpeg","pic 5.jpeg","pic 6.jpeg"];
 let i=0;
-const slideImg = document.getElementById("slide");
-setInterval(() => { 
-  i=(i+1)%photos.length; 
-  slideImg.src = photos[i]; 
-}, 2200);
+setInterval(()=>{i=(i+1)%photos.length; slideshow.src=photos[i]; bgSlide.src=photos[i];},2200);
 
-// Smart NO button
-const noBtn = document.getElementById("noBtn");
-document.addEventListener("mousemove", e => {
-  const r = noBtn.getBoundingClientRect();
-  const dx = e.clientX - (r.left + r.width/2);
-  const dy = e.clientY - (r.top + r.height/2);
-  const dist = Math.sqrt(dx*dx + dy*dy);
-  if(dist < 120){
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
-    noBtn.style.left = Math.random()*maxX + "px";
-    noBtn.style.top = Math.random()*maxY + "px";
+document.getElementById("startBtn").onclick=()=>{ show("screen2"); document.getElementById("music").play().catch(()=>{}); };
+
+/* Sensitive NO button */
+const noBtn=document.getElementById("no");
+document.addEventListener("mousemove",e=>{
+  const r=noBtn.getBoundingClientRect();
+  const dx=e.clientX-(r.left+r.width/2);
+  const dy=e.clientY-(r.top+r.height/2);
+  if(Math.hypot(dx,dy)<130){ 
+    noBtn.style.left=Math.random()*(window.innerWidth-120)+"px"; 
+    noBtn.style.top=Math.random()*(window.innerHeight-120)+"px"; 
   }
 });
 
-// YES button
-document.getElementById("yesBtn").onclick = () => {
-  questionScreen.classList.remove("active");
-  page3.classList.add("active");
-  startConfetti();
-};
+document.getElementById("yes").onclick=()=>{ show("screen3"); sparklyConfetti(); };
+document.getElementById("nextBtn").onclick=()=>show("screen4");
 
-// PAGE 3 -> NEXT
-document.getElementById("nextBtn").onclick = () => {
-  page3.classList.remove("active");
-  letterScreen.classList.add("active");
-};
-
-// Confetti
-function startConfetti(){
-  const canvas = document.getElementById("confetti");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const pieces = Array.from({length: 180}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 6 + 4,
-    s: Math.random() * 3 + 2
-  }));
-
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "#ff4d79";
-    pieces.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-      p.y += p.s;
-      if(p.y > canvas.height) p.y = 0;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
+/* Sparkly confetti function */
+function sparklyConfetti(){
+  setInterval(()=>{
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*innerWidth+"px";
+    c.style.width=c.style.height=8+Math.random()*8+"px";
+    c.style.background=`linear-gradient(${Math.random()*360}deg,#ff77a9,#ffccff)`;
+    c.style.transform=`rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(c);
+    let y=-10;
+    const fall=setInterval(()=>{
+      y+=6; c.style.top=y+"px";
+      if(y>innerHeight){c.remove(); clearInterval(fall);}
+    },20);
+  },120);
 }
 </script>
 
 </body>
 </html>
-
